@@ -1,4 +1,10 @@
+### maven ###
 /target
+mvnw
+mvnw.cmd
+
+### Spring ###
+*.properties
 
 ### STS ###
 
