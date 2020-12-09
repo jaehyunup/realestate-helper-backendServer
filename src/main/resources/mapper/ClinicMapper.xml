@@ -4,15 +4,12 @@
 
 <mapper namespace="com.ssafy.happyhouse.mappers.ClinicMapper">
 	
-<!-- 클리닉 조회 -->
+	<!-- 안심병원 조회 -->
 	<select id="selectClinic" resultType="com.ssafy.happyhouse.clinic.dto.ClinicDTO">
 		select city, gu, hospital, address, weekdaytime, saterday, sunday, phonenumber
 		  from clinic
 	</select>
-
-
-
-<!-- 클리닉 조회(도시, 구 검색) -->
+	<!-- 안심병원 조회(도시, 구 검색) -->
 	<select id="selectClinicByCityandGu" parameterType="string" resultType="com.ssafy.happyhouse.clinic.dto.ClinicDTO">
 		select city,gu,hospital,address,weekdaytime,saterday,sunday,phonenumber
 		from clinic

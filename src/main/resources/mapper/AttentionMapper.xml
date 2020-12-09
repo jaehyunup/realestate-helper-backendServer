@@ -4,18 +4,18 @@
 
 <mapper namespace="com.ssafy.happyhouse.mappers.AttentionMapper">
 
-<!-- 관심지역 조회 -->
+	<!-- 관심지역 조회 -->
 	<select id="selectAttention" parameterType="com.ssafy.happyhouse.attention.dto.AttentionDTO" resultType="com.ssafy.happyhouse.attention.dto.AttentionDTO">
 		select user_id, dong
 		  from user_attention
 		 where user_id = #{user_id}
 	</select>
-<!-- 관심지역 등록 -->
+	<!-- 관심지역 등록 -->
 	<insert id="insertAttention" parameterType="com.ssafy.happyhouse.attention.dto.AttentionDTO">
 		insert into user_attention(user_id,dong)
 		values (#{user_id},#{dong})
 	</insert>	
-<!-- 관심지역 삭제 -->
+	<!-- 관심지역 삭제 -->
 	<delete id="deleteAtteion" parameterType="com.ssafy.happyhouse.attention.dto.AttentionDTO">
 		delete from user_attention
 		 where user_id = #{user_id}

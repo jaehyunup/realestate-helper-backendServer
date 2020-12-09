@@ -29,13 +29,21 @@ import com.ssafy.happyhouse.deal.service.DealService;
 @RequestMapping("/attention")
 public class AttentionController{
 	@Autowired
-	AttentionService service;
+	private AttentionService service;
 	@Autowired
 	private DealService dealservice;
+	/**
+	 *
+	 * @param session
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 * @decription 유저정보 기반으로 관심지역을 조회 (업데이트중 기능 삭제로 인해 deprecated)
+	 * @deprecated
+	 */
 	@GetMapping("/list")
 	public ResponseEntity<?> getAttention(HttpSession session) throws ServletException, IOException {
 		AttentionDTO inputDto=new AttentionDTO();
-		
 		String user_id=(String)session.getAttribute("user_id");
 		inputDto.setUser_id(user_id);
 		try {
@@ -45,15 +53,21 @@ public class AttentionController{
 		}
 		return null;
 	}
-	
-	/* 삽입 */
+
+	/**
+	 *
+	 * @param map
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 * @decription 유저정보 기반으로 관심지역을 추가 (업데이트중 기능 삭제로 인해 deprecated)
+	 */
 	@ResponseBody
-	@PutMapping("/put")
+	@PutMapping
 	public ResponseEntity<?> putAttention(@RequestParam Map<String,Object> map) throws ServletException, IOException {
 		AttentionDTO inputDto=new AttentionDTO();
 		String user_id=(String)map.get("user_id");
 		String dong=(String)map.get("dong");
-		
 		inputDto.setUser_id(user_id);
 		inputDto.setDong(dong);
 		try {
@@ -64,7 +78,6 @@ public class AttentionController{
 						&& attentionedList.get(i).getDong().equals(dong)) {
 					flag=true;
 				}
-				
 			}
 			if(flag==false) {
 				return new ResponseEntity<>(service.insertAttention(inputDto), HttpStatus.OK);
@@ -77,10 +90,16 @@ public class AttentionController{
 		}
 		return null;
 	}
-	
-	// 삭제
-	
-	@DeleteMapping("/attention")
+
+	/**
+	 *
+	 * @param map
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 * @decription 유저정보 기반으로 관심지역을 삭제 (업데이트중 기능 삭제로 인해 deprecated)
+	 */
+	@DeleteMapping
 	public ResponseEntity<?> deleteAttention(Map<String,Object> map) throws ServletException, IOException {
 		AttentionDTO inputDto=new AttentionDTO();
 		String user_id=(String)map.get("user_id");
@@ -110,6 +129,15 @@ public class AttentionController{
 		return null;
 		
 	}
+
+	/**
+	 *
+	 * @param userId
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 * @decription 관심매물 조회
+	 */
 	@GetMapping("/bookmark/{userId}")
 	public ResponseEntity<?> getBookmark(@PathVariable(name="userId")String userId) throws ServletException, IOException {
 		try {
@@ -120,9 +148,18 @@ public class AttentionController{
 		}
 		return new ResponseEntity<>(null, HttpStatus.CONFLICT);
 	}
+
+	/**
+	 *
+	 * @param userId
+	 * @param no
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 * @decription 관심매물 추가 가능 여부 확인
+	 */
 	@GetMapping("/bookmark/{userId}/{no}")
 	public ResponseEntity<?> bootmarkallow(@PathVariable(name="userId")String userId,@PathVariable(name="no")int no) throws ServletException, IOException {
-
 		try {
 			int status=service.selectBookmark(userId, no).size();
 			if(status>0) { // 중복
@@ -130,13 +167,20 @@ public class AttentionController{
 			}else {
 				return new ResponseEntity<>("Allow", HttpStatus.OK);
 			}
-		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return new ResponseEntity<>("error", HttpStatus.CONFLICT);
 	}
-	
+
+	/**
+	 * @param userId
+	 * @param no
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 * @decription 관심매물 추가
+	 */
 	@PostMapping("/bookmark/{userId}/{no}")
 	public ResponseEntity<?> Addbookmark(@PathVariable(name="userId")String userId,@PathVariable(name="no")int no) throws ServletException, IOException {
 		System.out.println(userId+" "+no);
@@ -148,9 +192,19 @@ public class AttentionController{
 		}
 		return new ResponseEntity<>(null, HttpStatus.CONFLICT);
 	}
-	
+
+	/**
+	 *
+	 * @param userId
+	 * @param no
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 * @decription 관심매물 삭제
+	 */
 	@DeleteMapping("/bookmark/{userId}/{no}")
 	public ResponseEntity<?> deletebookmark(@PathVariable(name="userId")String userId,@PathVariable(name="no")int no) throws ServletException, IOException {
+
 		try {
 			return new ResponseEntity<>(service.deleteBookmark(userId, no)>0?"true":"false", HttpStatus.OK);
 		

@@ -1,5 +1,19 @@
 package com.ssafy.happyhouse.deal.dto;
 
+import lombok.*;
+
+/**
+* @className   : DealDTO
+* @author 	   : parkjaehyun
+* @description : 아파트거래기능 DTO
+* @Log ↓↓↓
+* ============================================================================
+* DATE       	   AUTHOR  	       NOTE
+* ----------------------------------------------------------------------------
+* 2020-11-13       parkjaehyun     최초생성
+*/
+@Getter@Setter
+@AllArgsConstructor@NoArgsConstructor@ToString
 public class DealDTO {
 	private int no;
 	private String dong;
@@ -15,100 +29,4 @@ public class DealDTO {
 	private String jibun;
 	private String type;
 	private String rentMoney;
-	public int getNo() {
-		return no;
-	}
-	
-	public String getDealYear() {
-		return dealYear;
-	}
-
-	public void setDealYear(String dealYear) {
-		this.dealYear = dealYear;
-	}
-
-	public void setNo(int no) {
-		this.no = no;
-	}
-	public String getDong() {
-		return dong;
-	}
-	public void setDong(String dong) {
-		this.dong = dong;
-	}
-	public String getAptName() {
-		return AptName;
-	}
-	public void setAptName(String aptName) {
-		AptName = aptName;
-	}
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
-	public String getDealAmount() {
-		return dealAmount;
-	}
-	public void setDealAmount(String dealAmount) {
-		this.dealAmount = dealAmount;
-	}
-	public String getBuildYear() {
-		return buildYear;
-	}
-	public void setBuildYear(String buildYear) {
-		this.buildYear = buildYear;
-	}
-	public String getDealMonth() {
-		return dealMonth;
-	}
-	public void setDealMonth(String dealMonth) {
-		this.dealMonth = dealMonth;
-	}
-	public String getDealDay() {
-		return dealDay;
-	}
-	public void setDealDay(String dealDay) {
-		this.dealDay = dealDay;
-	}
-	public String getArea() {
-		return area;
-	}
-	public void setArea(String area) {
-		this.area = area;
-	}
-	public String getFloor() {
-		return floor;
-	}
-	public void setFloor(String floor) {
-		this.floor = floor;
-	}
-	public String getJibun() {
-		return jibun;
-	}
-	public void setJibun(String jibun) {
-		this.jibun = jibun;
-	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
-	public String getRentMoney() {
-		return rentMoney;
-	}
-	public void setRentMoney(String rentMoney) {
-		this.rentMoney = rentMoney;
-	}
-
-	@Override
-	public String toString() {
-		return "DealDTO [no=" + no + ", dong=" + dong + ", AptName=" + AptName + ", code=" + code + ", dealAmount="
-				+ dealAmount + ", buildYear=" + buildYear + ", dealMonth=" + dealMonth + ", dealYear=" + dealYear
-				+ ", dealDay=" + dealDay + ", area=" + area + ", floor=" + floor + ", jibun=" + jibun + ", type=" + type
-				+ ", rentMoney=" + rentMoney + "]";
-	}
-	
 }

@@ -7,20 +7,32 @@ import com.ssafy.happyhouse.mappers.UserMapper;
 import com.ssafy.happyhouse.user.dto.User;
 
 /**
- * 
- * @author : 김지현, 박재현
- * @description : User 서비스 클래스 오버라이딩
- *
- */
+* @className   : UserServiceImpl
+* @author 	   : parkjaehyun
+* @description : 유저관리 기능 비즈니스로직 구현 클래스
+* @Log ↓↓↓
+* ============================================================================
+* DATE       	   AUTHOR  	       NOTE
+* ----------------------------------------------------------------------------
+* 2020-11-21       parkjaehyun     최초생성
+*/
 @Service
 public class UserServiceImpl implements UserService {
-	
 	@Autowired
 	private UserMapper mapper;
 
-	/* 로그인 메소드 : sqlSession을 통해 매퍼클래스 바로 수행 */
+	@Deprecated
 	@Override
 	public User login(User user) throws Exception {
+		/**
+		 * @methodName  : login
+		 * @params      : [user]
+		 * @return      : com.ssafy.happyhouse.user.dto.User
+		 * @description : 일반적 로그인
+		 * @deprecated  : JWT 기반 로그인 수행으로 업데이트되어 사용하지 않습니다.
+		 * @See         : com.ssafy.happyhouse.user.jwt.service.JwtService
+		 *
+		 */
 		User check = mapper.selectUser(user);
 		if(user.getUserPw().equals(check.getUserPw()))
 			return check;
@@ -28,33 +40,63 @@ public class UserServiceImpl implements UserService {
 			return null;
 	}
 
-	/* 회원가입 메소드  */
 	@Override
 	public int createUser(User user) throws Exception {
+		/**
+		 * @methodName  : createUser
+		 * @params      : [user]
+		 * @return      : int
+		 * @description : 유저가입
+		 *
+		 */
 		return mapper.insertUser(user);
 	}
 
-	/* 회원상세정보 메소드  */
 	@Override
 	public User selectUser(User user) throws Exception {
+		/**
+		 * @methodName  : selectUser
+		 * @params      : [user]
+		 * @return      : com.ssafy.happyhouse.user.dto.User
+		 * @description : 유저 상세정보 보기
+		 *
+		 */
 		return mapper.selectUser(user);
 	}
 
-	/* 회원정보 수정 메소드  */
 	@Override
 	public int updateUser(User user) throws Exception {
+		/**
+		 * @methodName  : updateUser
+		 * @params      : [user]
+		 * @return      : int
+		 * @description : 회원정보수정
+		 *
+		 */
 		return mapper.updateUser(user);
 	}
 
-	/* 회원 탈퇴 메소드 */
 	@Override
 	public int deleteUser(User user) throws Exception {
+		/**
+		 * @methodName  : deleteUser
+		 * @params      : [user]
+		 * @return      : int
+		 * @description : 회원정보 삭제
+		 *
+		 */
 		return mapper.deleteUser(user);
 	}
-	
-	/* 회원 비번찾기 메소드 */
+
 	@Override
 	public User selectPassword(User user) throws Exception {
+		/**
+		 * @methodName  : selectPassword
+		 * @params      : [user]
+		 * @return      : com.ssafy.happyhouse.user.dto.User
+		 * @description : 비밀번호 찾기
+		 *
+		 */
 		User check = mapper.selectUser(user);
 		if(user.getUserId().equals(check.getUserId()))
 			return check;
@@ -64,12 +106,25 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int isAllowId(User user) throws Exception {
+		/**
+		 * @methodName  : isAllowId
+		 * @params      : [user]
+		 * @return      : int
+		 * @description : 아이디 중복검사
+		 *
+		 */
 		return mapper.isAllowId(user);
-
 	}
 
 	@Override
 	public int isAllowName(User user) throws Exception {
+		/**
+		 * @methodName  : isAllowName
+		 * @params      : [user]
+		 * @return      : int
+		 * @description : 닉네임 중복검사
+		 *
+		 */
 		return mapper.isAllowName(user);
 
 	}
@@ -79,5 +134,3 @@ public class UserServiceImpl implements UserService {
 		return mapper.updateName(user);
 	}
 }
-
-/** 확인완료함(11/21) **/

@@ -12,8 +12,15 @@ import com.ssafy.happyhouse.indicate.service.IndicateService;
 import com.ssafy.happyhouse.map.dto.SidoGugunCodeDto;
 
 /**
- * 로그인 컨트롤러
- */
+* @className   : IndicateController
+* @author 	   : parkjaehyun
+* @description : 법정동기준 시도군구 코드 반환 기능 컨트롤러 (공공데이터포탈의 법정동 코드가 API마다 다른 이슈에 대응)
+* @Log ↓↓↓
+* ============================================================================
+* DATE       	   AUTHOR  	       NOTE
+* ----------------------------------------------------------------------------
+* 2020-11-20       parkjaehyun     최초생성
+*/
 @RestController
 @RequestMapping("/indicate")
 public class IndicateController{
@@ -22,9 +29,14 @@ public class IndicateController{
     
     @GetMapping("/{dong}")
     public ResponseEntity<?> indacateDong(@PathVariable(name="dong")String dong){
+    	/**
+    	 * @methodName  : indacateDong
+    	 * @params      : [dong]
+    	 * @return      : org.springframework.http.ResponseEntity<?>
+    	 * @description : 법정동기준 시도군구 코드를 반환한다.
+    	 *
+    	 */
     	try {
-    		System.out.println("요청");
-    		System.out.println(dong);
 			return new ResponseEntity<>(indicateService.getIndicateParams(dong),HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -10,31 +10,37 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import com.ssafy.happyhouse.user.jwt.service.JwtService;
 
 /**
- * 
- * @author : 김지현, 박재현
- * @description : Json-Web-Token 인터셉터 클래스로, Interceptor핸들러를 상속받기
- * 	- Interceptor : 쉽게 말해, 클라이언트에서 서버로 한 요청을 보내는 과정에 있어, Interceptor가 중간에 요청을 가로채 해당 정보의 어떠한 작업을 처리하는 것
- * 		- 정상 작업 완료되었다면, 서버로 보냄
- * 		- 비정상 작업 처리가되었다면, 클라이언트로 돌려보냄 
- *
- */
+/**
+* @className   : JwtInterceptor
+* @author 	   : parkjaehyun
+* @description : Json-Web-Token 인터셉터 클래스로, HandlerInterceptor 를 상속받아 인터셉트과정을 구현
+* @Log ↓↓↓
+* ============================================================================
+* DATE       	   AUTHOR  	       NOTE
+* ----------------------------------------------------------------------------
+* 2020-11-21       parkjaehyun     최초생성
+*/
 
 @Component
 public class JwtInterceptor implements HandlerInterceptor {
-	
-	/* jwt서비스 객체 불러오기 */
 	@Autowired
 	private JwtService jwtService;
-	
-	/* 인터셉터 메소드 실행 => 요청의 토큰값 체킹 */
+
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		
+		/**
+		 * @methodName  : preHandle
+		 * @params      : [request, response, handler]
+		 * @return      : boolean
+		 * @description : 서블릿에서 컨트롤러가 호출되기전에 인터셉터가 요청으 가로채 해당 메서드를 먼저 수행함.
+		 * 				  request Header에 담겨진 AuthToken 값의 유효성 검사를 통해 인증과정을 수행
+		 *
+		 */
 		if(request.getMethod().contentEquals("OPTIONS")) {
 			return true;
 		}
-		else {	// CRUD (get, post, put, delete) 받아왔다면, 요청에서 헤더로 값 받아오기
-			String token = request.getHeader("auth-token");	// 헤더로 받은 auth-token 값 받기 (유효한 토큰 받아내기)
+		else {
+			String token = request.getHeader("auth-token");
 			if(token != null && token.length() > 0) {
 				jwtService.checkValid(token);
 				return true;

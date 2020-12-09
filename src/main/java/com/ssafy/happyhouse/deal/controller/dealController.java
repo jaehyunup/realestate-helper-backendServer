@@ -12,48 +12,66 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.happyhouse.deal.service.DealService;
 
 /**
- * 로그인 컨트롤러
- */
-
+* @className   : dealController
+* @author 	   : parkjaehyun
+* @description : 아파트 거래 관련 기능 제공 컨트롤러
+* @Log ↓↓↓
+* ============================================================================
+* DATE       	   AUTHOR  	       NOTE
+* ----------------------------------------------------------------------------
+* 2020-11-13       parkjaehyun     최초생성
+*/
 @RestController
 public class dealController{
 	@Autowired
 	private DealService service;
-	
-    @GetMapping("/deal")
-    public String dealPage() {
-    	return "deal/deal";
-    }
-    @GetMapping("/deal/top20/{dong}")
-    public ResponseEntity<?> dealTop20(@PathVariable(name="dong")String dong) {
-    	try {
-    		return new ResponseEntity<>(service.selectTopAptByDong(dong),HttpStatus.OK);
-    	}catch(Exception e) {
-    		e.printStackTrace();
-    		return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
-    	}
-    }
-    
-    @ResponseBody
-    @GetMapping("/deal/{dong}")
+
+    @GetMapping("/deal/all")
+	public ResponseEntity<?> allDeal() {
+    	/**
+    	 * @methodName  : allDeal
+    	 * @params      : []
+    	 * @return      : org.springframework.http.ResponseEntity<?>
+    	 * @description : 전국 아파트 거래내역을 전체 조회
+    	 *
+    	 */
+		try {
+			return new ResponseEntity<>(service.selectAllDeals(),HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@GetMapping("/deal/{dong}")
 	public ResponseEntity<?> deal(@PathVariable(name="dong")String dong) {
-    	System.out.println("발생");
+		/**
+		 * @methodName  : deal
+		 * @params      : [dong]
+		 * @return      : org.springframework.http.ResponseEntity<?>
+		 * @description : 해당 법정동 내 모든 아파트 거래내역을 조회
+		 *
+		 */
 		try {
 			return new ResponseEntity<>(service.selectDeals(dong),HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
 		}
 	}
-    
-    @CrossOrigin
-    @ResponseBody
-    @GetMapping("/deal/all")
-	public ResponseEntity<?> allDeal() {
-    	System.out.println("발생");
+
+	@GetMapping("/deal/top20/{dong}")
+	public ResponseEntity<?> dealTop20(@PathVariable(name="dong")String dong) {
+		/**
+		 * @methodName  : dealTop20
+		 * @params      : [dong]
+		 * @return      : org.springframework.http.ResponseEntity<?>
+		 * @description : 해당 법정동 내 가격기준 상위 20개 아파트 조회
+		 *
+		 */
 		try {
-			return new ResponseEntity<>(service.selectAllDeals(),HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(service.selectTopAptByDong(dong),HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
 		}
 	}
 

@@ -4,7 +4,7 @@
 
 <mapper namespace="com.ssafy.happyhouse.mappers.IndicateMapper">
 
-<!-- 관심지역 조회 -->
+	<!-- 관심지역 조회 -->
 	<select id="selectIndicate" parameterType="String" resultType="com.ssafy.happyhouse.indicate.dto.IndicateDTO">
 		select * 
 		  from indicatordong 

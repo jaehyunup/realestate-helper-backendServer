@@ -4,14 +4,14 @@
 
 <mapper namespace="com.ssafy.happyhouse.mappers.HouseMapMapper">
 
-<!-- 시도 검색 지도 -->
+	<!-- 시도 검색 지도 -->
 	<select id="getSido" resultType="com.ssafy.happyhouse.map.dto.SidoGugunCodeDto">
 		select left(sido_code, 2) 'sidoCode', sido_name 'sidoName' 
 		from sidocode 
 		order by sido_code
 	</select>
 
-<!-- 구군 검색 (시도 내) -->
+	<!-- 구군 검색 (시도 내) -->
 	<select id="getGugunInSido" parameterType="string" resultType="com.ssafy.happyhouse.map.dto.SidoGugunCodeDto">
 		select left(gugun_code, 5) 'gugunCode', gugun_name 'gugunName'
 		 from guguncode 
@@ -19,9 +19,7 @@
 		order by gugun_code
 	</select>
 
-
-
-<!-- 동 검색 (구군 내) -->
+	<!-- 동 검색 (구군 내) -->
 	<select id="getDongInGugun" parameterType="string" resultType="com.ssafy.happyhouse.map.dto.HouseInfoDto">
 		select distinct dong, code  
 		 from houseinfo
@@ -29,26 +27,22 @@
 		 order by dong
 	</select>
 
-
-
-<!-- 아파트 검색 (동 내) -->
+	<!-- 아파트 검색 (동 내) -->
 	<select id="getAptInDong" parameterType="string" resultType="com.ssafy.happyhouse.map.dto.HouseInfoDto">
 		select no, dong, AptName, code, jibun
 		  from houseinfo
 		 where dong = #{dong}
 		order by AptName
 	</select>
-
-
 	
-<!-- 동을 통한 시도군구 조회 -->
+	<!-- 법정동이 속한 시도군구 조회 -->
 	<select id="getSidogugunByDong" parameterType="string" resultType="com.ssafy.happyhouse.map.dto.SidoGugunCodeDto">
 		select city 'sidoName',gugun 'gugunName',left(gugun_code,5) 'gugunCode'
 		 from dongcode dong join guguncode gugun on (dong.gugun=gugun.gugun_name)
 		 where dong.dong=#{dong}
 	</select>
 	
-	<!-- 동,아파트이름 통한 아파트 평수 조회 -->
+	<!-- 동 & 아파트이름 기준 아파트 평수 조회 -->
 	<select id="getAreaByDongAndAptName" resultType="int">		
 		SELECT area
 		FROM housedeal
@@ -56,7 +50,8 @@
 		group by area
 		order by area;
 	</select>
-	<!-- 아파트의 평수별 가격 -->
+
+	<!-- 해당 아파트의 평수별 가격 조회-->
 	<select id="getAmountHistory" resultType="com.ssafy.happyhouse.deal.dto.AmountHistory">
 	SELECT distinct dealMonth,dealDay,trim(dealAmount) dealAmount
 	FROM housedeal

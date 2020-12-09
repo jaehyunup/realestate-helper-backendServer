@@ -12,30 +12,33 @@ import com.ssafy.happyhouse.clinic.service.ClinicService;
 import com.ssafy.happyhouse.map.dto.SidoGugunCodeDto;
 import com.ssafy.happyhouse.map.service.HouseMapService;
 
-
-
 /**
- * Clinic 컨트롤러 (ClinicService, HouseMapService 활용한 진료소 조회)
- * @author khyun
- *
- */
+* @className   : ClinicController
+* @author 	   : parkjaehyun
+* @description : 안심병원기능제공 컨트롤러
+* @Log ↓↓↓
+* ============================================================================
+* DATE       	   AUTHOR  	       NOTE
+* ----------------------------------------------------------------------------
+* 2020-11-08       parkjaehyun     최초생성
+*/
 @RestController
 public class ClinicController {
 	@Autowired
     private ClinicService service;
- 
 	@Autowired
 	private HouseMapService mapService;
-	
-	
-	/* 진료소 전체 조회 */
-	@GetMapping("/clinic")
-	public void lookupClinic(Model model) throws Exception {
-		model.addAttribute("", service.getClinicList());
-	}
-	
+
+
 	@GetMapping("/clinic/{dong}")
 	public ResponseEntity<?> getClinicByCityandGu(@PathVariable(name="dong") String dong) throws Exception {
+		/**
+		 * @methodName  : getClinicByCityandGu
+		 * @params      : [dong]
+		 * @return      : org.springframework.http.ResponseEntity<?>
+		 * @description : 법정동 기준 모든 안심병원 리스트 조회
+		 *
+		 */
 		SidoGugunCodeDto sgcDto = mapService.getSidogugunByDong(dong);
 		try {
 			return new ResponseEntity<>(service.getClinicListByCityAndGu(sgcDto.getSidoName(), sgcDto.getGugunName()), HttpStatus.OK);
@@ -44,6 +47,5 @@ public class ClinicController {
 		}
 		return null;
 	}
-
 }
 

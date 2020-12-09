@@ -8,16 +8,21 @@ import org.springframework.stereotype.Service;
 import com.ssafy.happyhouse.attention.dto.AttentionDTO;
 import com.ssafy.happyhouse.attention.dto.Bookmark;
 import com.ssafy.happyhouse.mappers.AttentionMapper;
+/**
+ * @className   : AttentionServiceImpl
+ * @author 	   : parkjaehyun
+ * @date 	   : 2020-11-27
+ * @description : 유저 관심지역, 매물 비즈니스 로직 구현 class
+ */
 @Service
 public class AttentionServiceImpl implements AttentionService {
 	@Autowired
 	private AttentionMapper attentionMapper;
-	
+
 	@Override
 	public List<AttentionDTO> selectAttention(AttentionDTO attentionDto) throws Exception {
 		return attentionMapper.selectAttention(attentionDto);
 	}
-
 	@Override
 	public int insertAttention(AttentionDTO attentionDto) throws Exception {
 		return attentionMapper.insertAttention(attentionDto);

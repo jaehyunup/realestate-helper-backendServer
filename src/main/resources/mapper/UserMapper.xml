@@ -3,22 +3,20 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ssafy.happyhouse.mappers.UserMapper">
-<!-- 로그인 -->
+	<!-- 로그인 -->
 	<select id="selectUser" parameterType="com.ssafy.happyhouse.user.dto.User" resultType="com.ssafy.happyhouse.user.dto.User">
 		 select user_id 'userId', user_pw 'userPw', user_name 'userName', user_age 'userAge', user_auth 'userAuth'
 		 from user
 		 where user_id = #{userId} and user_pw = #{userPw}
 	</select>
 
-
-	
-<!-- 회원등록 -->
+	<!-- 회원등록 -->
 	<insert id="insertUser" parameterType="com.ssafy.happyhouse.user.dto.User">
 		insert into user(user_id, user_pw,user_name, user_age)
 		values (#{userId}, #{userPw},#{userName},#{userAge})
 	</insert>	
 
-<!-- 아이디 중복체크 -->
+	<!-- 아이디 중복체크 -->
 	<select id="isAllowId" parameterType="com.ssafy.happyhouse.user.dto.User" resultType="int">
 		select count(*) 
 		  from user 
@@ -32,14 +30,14 @@
 		 where user_name = #{userName} 
 	</select>
 	
-<!-- 회원수정 -->
+	<!-- 회원수정 -->
 	<update id="updateUser" parameterType="com.ssafy.happyhouse.user.dto.User">
 		update user
 		   set user_id = #{userId}
 		 where user_pw = #{userPw}
 	</update>	
 	
-	<!-- 회원수정 -->
+	<!-- 닉네임 수정 -->
 	<update id="updateName" parameterType="com.ssafy.happyhouse.user.dto.User">
 		update user
 		   set user_name = #{userName}
@@ -48,22 +46,18 @@
 
 
 
-<!-- 회원탈퇴 -->
+	<!-- 회원탈퇴 -->
 	<delete id="deleteUser" parameterType="com.ssafy.happyhouse.user.dto.User">
 		delete from user where user_id=#{userId}
 	</delete>	
 
 
 	
-<!-- 비번찾기 -->
+	<!-- 비번찾기 -->
 	<select id="selectPassword" parameterType="string" resultType="com.ssafy.happyhouse.user.dto.User">
 		select * 
 		  from user 
 		 where user_id = #{userId} and user_name = #{userName} and user_age = #{userAge} 
 	</select>
-	
-<!-- 관리자모드일때, 회원검색조회, 회원정보수정, 회원탈퇴 등의 기능 추가 -->
 </mapper>
 
-
-<!-- 확인완료함(11/21) -->

@@ -22,36 +22,35 @@ import com.ssafy.happyhouse.user.jwt.service.JwtService;
 import com.ssafy.happyhouse.user.service.UserService;
 
 /**
- * 
- * @author : 김지현, 박재현
- * @description : 회원 관련 서비스 총모음 
- * 	- 루트/user/mypage : 회원정보보기(마이페이지)
- *	- 루트/user/join : 회원가입
- *	- 루트/user/delete : 회원탈퇴
- *	- 루트/user/edit : 회원정보수정
- * ...기타 관리자모드에서의 어떠한 작업은 나중에 추가할 것.
- * 
- */
+* @className   : UserController
+* @author 	   : parkjaehyun
+* @description : 유저 관리기능 제공 컨트롤러
+* @Log ↓↓↓
+* ============================================================================
+* DATE       	   AUTHOR  	       NOTE
+* ----------------------------------------------------------------------------
+* 2020-11-20       parkjaehyun     최초생성
+*/
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
-	
-	/* jwt 객체 불러오기 */
 	@Autowired
 	private JwtService jwtService;
-	
-	/* 유저 서비스 객체 불러오기 */
 	@Autowired
 	private UserService userService;
-	
-	/* 마이페이지 */
-	@GetMapping("/mypage")
-	public ResponseEntity<Map<String, Object>> getMyPage(HttpServletRequest request) {
-		HttpStatus status = null;
 
+	@GetMapping("/isAccepted")
+	public ResponseEntity<Map<String, Object>> getMyPage(HttpServletRequest request) {
+		/**
+		 * @methodName  : isAccepted
+		 * @params      : [request]
+		 * @return      : org.springframework.http.ResponseEntity<java.util.Map<java.lang.String,java.lang.Object>>
+		 * @description : 클라이언트측의 토큰값의 유효성 검사
+		 * @See         : "Jwt인증으로, Request 헤더의 토큰을 확인합니다"
+		 */
+		HttpStatus status = null;
 		Map<String, Object> resultMap = new HashMap<>();
-		
 		try {
 			resultMap.putAll(jwtService.get(request.getHeader("auth-token")));
 			status = HttpStatus.ACCEPTED;
@@ -61,19 +60,32 @@ public class UserController {
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
-	/* 회원 가입 */
+
+
 	@PostMapping
 	public ResponseEntity<String> joinUser(@RequestBody User user) throws Exception{
-		System.out.println(user);
+		/**
+		 * @methodName  : joinUser
+		 * @params      : [user]
+		 * @return      : org.springframework.http.ResponseEntity<java.lang.String>
+		 * @description : 유저 회원가입
+		 *
+		 */
 		if(userService.createUser(user) > 0) {
 			return new ResponseEntity<String>("회원가입성공", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("회원가입실패", HttpStatus.NO_CONTENT);
 	}
-	
-	/* 회원 정보 수정 */
+
 	@PutMapping("/mypage/{userId}")
 	public ResponseEntity<String> updateUser(@RequestBody User user) throws Exception {
+		/**
+		 * @methodName  : updateUser
+		 * @params      : [user]
+		 * @return      : org.springframework.http.ResponseEntity<java.lang.String>
+		 * @description : 회원정보 수정
+		 *
+		 */
 		if(userService.updateUser(user) >= 0) {
 			return new ResponseEntity<String>("업데이트 성공", HttpStatus.OK);
 		}
@@ -84,11 +96,16 @@ public class UserController {
 	/* 회원 탈퇴 => 서버에서 회원삭제 한 후, 로그아웃 처리(로그아웃하면 토큰도 삭제) */
 	@DeleteMapping("/delete/{userId}")
 	public ResponseEntity<?> deleteUser(@PathVariable String id) {
+		/**
+		 * @methodName  : deleteUser
+		 * @params      : [id]
+		 * @return      : org.springframework.http.ResponseEntity<?>
+		 * @description : 회원탈퇴
+		 * @See         : JWT 토큰 Free 및 DB 유저 삭제
+		 */
 		HttpStatus status = null;
 		Map<String, Object> resultMap = new HashMap<>();
-
 		User check = new User();
-//		check.setUserId(request.getHeader("userId"));
 		check.setUserId(id);
 		try {
 			if(userService.deleteUser(check) >= 0) {
@@ -105,9 +122,15 @@ public class UserController {
 		return new ResponseEntity<String>("회원삭제처리", status);
 	}
 	
-	/* 유저이름중복체크 */
 	@GetMapping("/check/id/{userId}")
 	public ResponseEntity<?> checkId(@PathVariable(name="userId")String userId) {
+		/**
+		 * @methodName  : checkId
+		 * @params      : [userId]
+		 * @return      : org.springframework.http.ResponseEntity<?>
+		 * @description : 유저아이디 중복체크
+		 *
+		 */
 		User t=new User();
 		t.setUserId(userId);
 		try {
@@ -119,13 +142,20 @@ public class UserController {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return new ResponseEntity<>("false", HttpStatus.BAD_GATEWAY); 
-		
+		return new ResponseEntity<>("false", HttpStatus.BAD_GATEWAY);
 	}
-	
+
+
 	/* 유저이름 중복체크 */
 	@GetMapping("/check/name/{userName}")
 	public ResponseEntity<?> checkName(@PathVariable(name="userName")String userName) {
+		/**
+		 * @methodName  : checkName
+		 * @params      : [userName]
+		 * @return      : org.springframework.http.ResponseEntity<?>
+		 * @description : 유저 닉네임 중복체크
+		 *
+		 */
 		User t=new User();
 		t.setUserName(userName);
 		try {
@@ -137,13 +167,18 @@ public class UserController {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return new ResponseEntity<>("false", HttpStatus.BAD_GATEWAY); 
-		
+		return new ResponseEntity<>("false", HttpStatus.BAD_GATEWAY);
 	}
 	
-	/* 유저 이름 변경*/
 	@GetMapping("/change/{userId}/{userName}")
 	public ResponseEntity<?> changeName(@PathVariable(name="userId")String userId,@PathVariable(name="userName")String userName) {
+		/**
+		 * @methodName  : changeName
+		 * @params      : [userId, userName]
+		 * @return      : org.springframework.http.ResponseEntity<?>
+		 * @description : 유저 닉네임 변경
+		 *
+		 */
 		User t=new User();
 		t.setUserName(userName);
 		t.setUserId(userId);
@@ -152,9 +187,6 @@ public class UserController {
 		}catch(Exception e) {
 			return new ResponseEntity<>("false", HttpStatus.OK);
 		}
-		
 	}
 	
 }
-
-/** 확인완료함(11/21) => 이걸 스읍..흠...회원정보수정, 회원탈퇴 해야하노... **/

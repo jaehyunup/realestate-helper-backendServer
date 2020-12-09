@@ -9,5 +9,4 @@ import com.ssafy.happyhouse.safehospital.dto.SafehospitalDTO;
 public interface SafeHospitalMapper {
 	List<SafehospitalDTO> selectSafehospital() throws Exception;
 	List<SafehospitalDTO> selectSafehospitalByCityandGu(String sido_name, String gugun_name) throws Exception;
-
 }
