@@ -1,0 +1,124 @@
+.search-sec{
+    margin-top:5rem;
+    margin-left:1rem;
+    margin-right:1rem;
+    
+}
+
+
+.header-fixed {
+    width: 100% 
+}
+
+.header-fixed > thead,
+.header-fixed > tbody,
+.header-fixed > thead > tr,
+.header-fixed > tbody > tr,
+.header-fixed > thead > tr > th,
+.header-fixed > tbody > tr > td {
+    display: block;
+}
+
+.header-fixed > tbody > tr:after,
+.header-fixed > thead > tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+.header-fixed > tbody {
+    overflow-y: auto;
+    overflow-x: auto;
+    height: 250px;
+}
+
+.header-fixed > tbody > tr > td,
+.header-fixed > thead > tr > th {
+    width: 33%;
+    float: left;
+}
+
+
+.search-slt{
+    display: block;
+    width: 100%;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #55595c;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    height: calc(3rem + 2px) !important;
+    border-radius:0;
+}
+
+.wrn-btn{
+    width: 100%;
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: capitalize;
+    height: calc(3rem + 2px) !important;
+    border-radius:0;
+    border:none;
+    background-color: #fff;
+}
+.servicebtn{
+    margin-left: 1rem;;
+    width: 100%;
+    font-size: 1rem;
+    font-family: 'AppleSDGothicNeoEB';
+    font-weight: bolder;
+    text-transform: capitalize;
+    height: calc(3rem + 2px) !important;
+    border-radius:0;
+    border:1px #fff solid;
+    border-radius: 10px;;
+}
+
+#sOption1{
+    border-top: #455554 solid 2px;;
+    border-bottom: #455554 solid 2px;;
+    border-right:none;
+    border-left:none;
+}
+#sOption2{
+    border-top: #455554 solid 2px;;
+    border-bottom: #455554 solid 2px;;
+    border-right:none;
+    border-left:none;
+}
+#sOption3{
+    border-top: #455554 solid 2px;;
+    border-bottom: #455554 solid 2px;;
+    border-right:none;
+    border-left:none;
+}
+#sOption4{
+    border-top: #455554 solid 2px;
+    border-bottom: #455554 solid 2px;;
+    border-right:none;
+    border-left:none;
+}
+#sBtn{
+    border-top: #455554 solid 2px;;
+    border-bottom: #455554 solid 2px;;
+}
+.pagination > li{
+    font-size:0.7rem;
+}
+.page-link{
+    color:black;
+}
+
+
+.detail{
+    background-color:#fff;
+    border-radius: 1rem;
+    border:1px #222 solid;
+
+}
+
+.detail > div > .card-text{
+    color:#222;
+}

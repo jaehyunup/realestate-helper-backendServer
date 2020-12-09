@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.happyhouse.mappers.SafeHospitalMapper">
+
+
+	<!-- 안전지정병원 (전체검색) -->
+	<select id="selectSafehospital"
+		resultType="com.ssafy.happyhouse.safehospital.dto.SafehospitalDTO">
+		select city, gu, hospital, address, type, phonenumber
+		from safehospital
+	</select>
+
+
+	<!-- 안전지정병원 (도시,구 검색) -->
+	<select id="selectSafehospitalByCityandGu"
+		parameterType="String"
+		resultType="com.ssafy.happyhouse.safehospital.dto.SafehospitalDTO">
+		select city, gu, hospital, address, type, phonenumber
+		from safehospital
+		where city like #{sido_name} and gu like #{gugun_name}
+	</select>
+
+</mapper>

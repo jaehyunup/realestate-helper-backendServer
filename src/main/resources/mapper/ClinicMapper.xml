@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.happyhouse.mappers.ClinicMapper">
+	
+<!-- 클리닉 조회 -->
+	<select id="selectClinic" resultType="com.ssafy.happyhouse.clinic.dto.ClinicDTO">
+		select city, gu, hospital, address, weekdaytime, saterday, sunday, phonenumber
+		  from clinic
+	</select>
+
+
+
+<!-- 클리닉 조회(도시, 구 검색) -->
+	<select id="selectClinicByCityandGu" parameterType="string" resultType="com.ssafy.happyhouse.clinic.dto.ClinicDTO">
+		select city,gu,hospital,address,weekdaytime,saterday,sunday,phonenumber
+		from clinic
+		where city like #{sido_name} and gu like #{gugun_name}
+	</select>
+</mapper>

@@ -1,0 +1,50 @@
+
+
+.container-fluid{
+    padding-right: 0px;
+    padding-left: 0px;
+}
+.jumbotron {
+    background:
+      linear-gradient(rgba(1, 1, 48, 0.85),
+        rgba(125, 250, 250, 0.45)),
+      url(https://source.unsplash.com/random/1920x1080);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: white !important;
+    background-size: cover;
+    height: 1080px;
+    
+  }
+
+  /* BUTTON STYLE HERE */
+
+  /* BUTTON HEADER RIGHT */
+  .rightHeader {
+    position: absolute;
+    top: -15px;
+    right: 8px;
+  }
+  /* BUTTON HEADER LEFT */
+  .leftHeader {
+    position: absolute;
+    top: -15px;
+    left: 20px;
+  }
+  .title {
+    margin-top: 17vh;
+  }
+  .text_margin {
+    width: 70vw;
+    margin: 0 auto;
+  }
+  .string-1 {
+    padding-top: 30px;
+    width: 600px;
+    margin: 0 auto;
+    font-weight: 100;
+    margin-top: -35px;
+  }
+  .content {
+    margin: 10%;
+  }

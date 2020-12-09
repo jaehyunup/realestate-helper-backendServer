@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.happyhouse.mappers.DealMapper">
+	<select id="selectDeals" resultType="com.ssafy.happyhouse.deal.dto.DealDTO">
+		select *
+		  from housedeal
+		 where dong = #{dong}
+		order by dealYear desc, dealMonth desc, dealDay desc
+	</select>
+	
+	<select id="selectAllDeals" resultType="com.ssafy.happyhouse.deal.dto.DealDTO">
+		select *
+		  from housedeal
+		order by dealYear desc, dealMonth desc, dealDay desc
+	</select>
+	<select id="selectBookmarkDeal" resultType="com.ssafy.happyhouse.deal.dto.DealDTO">
+		select *
+		from housedeal 
+		where no in (select no 
+						from bookmark
+							 where user_id=#{userId})
+	</select>
+	
+	<select id="selectTopAptByDong" parameterType="string">
+		select dong,max(dealAmount) 'dealAmount',AptName 
+		from housedeal
+		where dong like ${dong}
+		order by max(dealAmount) desc
+		limit 0,10;
+	</select>
+		
+		
+</mapper>

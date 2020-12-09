@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.happyhouse.mappers.NoticeMapper">
+
+
+<!-- 공지사항 등록 -->
+	<insert id="insertNotice" parameterType="com.ssafy.happyhouse.notice.dto.NoticeDto">
+		insert into notice(
+			notice_title, notice_describ
+		) values (
+			#{notice_title}, #{notice_describ}
+		)
+	</insert>	
+
+	<!-- 공지사항 수정 -->
+	<update id="updateNotice" parameterType="com.ssafy.happyhouse.notice.dto.NoticeDto">
+		update notice
+		   set notice_title = #{notice_title},
+		   	   notice_describ = #{notice_describ}
+		 where notice_number = #{notice_number}
+	</update>	
+
+
+<!-- 공지사항 삭제 -->
+	<delete id="deleteNotice" parameterType="string">
+		delete 
+		  from notice 
+		 where notice_number = #{number}
+	</delete>	
+
+
+<!-- 공지사항 검색(전체검색) -->
+	<select id="selectNotice" resultType="com.ssafy.happyhouse.notice.dto.NoticeDto">
+		select * 
+		 from notice
+	</select>
+
+
+<!-- 공지사항 검색(공지사항 번호로 조회) -->
+	<select id="selectNoticeByNumber" parameterType="string" resultType="com.ssafy.happyhouse.notice.dto.NoticeDto">
+		select * 
+		  from notice
+		 where notice_number = #{number}
+	</select>
+
+
+<!-- 공지사항 검색(공지사항 타이틀로 조회) -->
+	<select id="selectNoticeByTitle" parameterType="string" resultType="com.ssafy.happyhouse.notice.dto.NoticeDto">
+		select *
+		  from notice
+		 where notice_title like #{title}
+	</select>
+
+
+<!-- 공지사항 검색(공지사항 공지내용으로 조회) -->
+	<select id="selectNoticeByDescrib" parameterType="string" resultType="com.ssafy.happyhouse.notice.dto.NoticeDto">
+		select *
+		  from notice
+		 where notice_describ like #{describ}
+	</select>
+		
+</mapper>
